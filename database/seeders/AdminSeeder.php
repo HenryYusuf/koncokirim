@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
         $obj = new Admin();
         $obj->name = 'Admin';
         $obj->email = 'admin@gmail.com';
-        $obj->password = bcrypt('admin123');
+        $obj->password = bcrypt('12345678');
         $obj->save();
     }
 }
