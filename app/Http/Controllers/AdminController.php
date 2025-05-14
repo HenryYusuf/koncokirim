@@ -6,6 +6,7 @@ use App\Mail\Websitemail;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -17,7 +18,7 @@ class AdminController extends Controller
 
     public function adminDashboard()
     {
-        return view('admin.admin_dashboard');
+        return view('admin.index');
     }
 
     public function adminLoginSubmit(Request $request)
@@ -108,5 +109,89 @@ class AdminController extends Controller
         $adminData->update();
 
         return redirect()->route('admin.login')->with('success', 'Password reset successful');
+    }
+
+    public function adminProfile()
+    {
+        $id = Auth::guard('admin')->id();
+        $profileData = Admin::find($id);
+
+        return view('admin.admin_profile', compact('profileData'));
+    }
+
+    public function adminProfileStore(Request $request)
+    {
+        $id = Auth::guard('admin')->id();
+        $data = Admin::find($id);
+
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
+
+        $oldPhotoPath = $data->photo;
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/admin_images'), $fileName);
+            $data->photo = $fileName;
+
+            if ($oldPhotoPath && $oldPhotoPath !== $fileName) {
+                $this->deleteOldImage($oldPhotoPath);
+            }
+        }
+
+        $data->save();
+        $notification = array(
+            'message' => 'Profile Updated Successful',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    private function deleteOldImage(string $oldPhotoPath): void
+    {
+        $fullPath = public_path('upload/admin_images/' . $oldPhotoPath);
+
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+    }
+
+    public function adminChangePassword()
+    {
+        $id = Auth::guard('admin')->id();
+        $profileData = Admin::find($id);
+
+        return view('admin.admin_change_password', compact('profileData'));
+    }
+
+    public function adminChangePasswordUpdate(Request $request)
+    {
+        $admin = Auth::guard('admin')->user();
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+
+        if (!Hash::check($request->old_password, $admin->password)) {
+            $notification = array(
+                'message' => 'Old Password Does not Match',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        // Update new password
+        Admin::whereId($admin->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password Change Successful',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

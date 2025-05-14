@@ -34,4 +34,11 @@ Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admi
 
 Route::middleware(Admin::class)->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+
+    Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
+    Route::post('/admin/profile', [AdminController::class, 'adminProfileStore'])->name('admin.profile.store');
+
+
+    Route::get('/admin/change-password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
+    Route::post('/admin/change-password-update', [AdminController::class, 'adminChangePasswordUpdate'])->name('admin.change.password.update');
 });
