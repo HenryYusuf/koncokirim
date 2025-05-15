@@ -67,6 +67,96 @@ class RestaurantController extends Controller
 
     public function restaurantDashboard()
     {
-        return view('restaurant.restaurant_dashboard');
+        return view('restaurant.index');
+    }
+
+    public function restaurantLogout()
+    {
+        Auth::guard('restaurant')->logout();
+        return redirect()->route('restaurant.login')->with('success', 'Logout successful');
+    }
+
+    public function restaurantProfile()
+    {
+        $id = Auth::guard('restaurant')->id();
+        $profileData = Restaurant::find($id);
+
+        return view('restaurant.restaurant_profile', compact('profileData'));
+    }
+
+    public function restaurantProfileStore(Request $request)
+    {
+        $id = Auth::guard('restaurant')->id();
+        $data = Restaurant::find($id);
+
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
+
+        $oldPhotoPath = $data->photo;
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload/restaurant_images'), $fileName);
+            $data->photo = $fileName;
+
+            if ($oldPhotoPath && $oldPhotoPath !== $fileName) {
+                $this->deleteOldImage($oldPhotoPath);
+            }
+        }
+
+        $data->save();
+        $notification = array(
+            'message' => 'Profile Updated Successful',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+
+    private function deleteOldImage(string $oldPhotoPath): void
+    {
+        $fullPath = public_path('upload/restaurant_images/' . $oldPhotoPath);
+
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+    }
+
+    public function restaurantChangePassword()
+    {
+        $id = Auth::guard('restaurant')->id();
+        $profileData = Restaurant::find($id);
+
+        return view('restaurant.restaurant_change_password', compact('profileData'));
+    }
+
+    public function restaurantChangePasswordUpdate(Request $request)
+    {
+        $restaurant = Auth::guard('restaurant')->user();
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+
+        if (!Hash::check($request->old_password, $restaurant->password)) {
+            $notification = array(
+                'message' => 'Old Password Does not Match',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        // Update new password
+        Restaurant::whereId($restaurant->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password Change Successful',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

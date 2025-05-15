@@ -58,9 +58,15 @@ Route::post('/restaurant/register-submit', [RestaurantController::class, 'restau
 // Route::get('/admin/reset-password/{tokem}/{email}', [AdminController::class, 'adminResetPassword']);
 // Route::post('/admin/reset-password-submit', [AdminController::class, 'adminResetPasswordSubmit'])->name('admin.reset_password_submit');
 
-// Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+Route::get('/restaurant/logout', [RestaurantController::class, 'restaurantLogout'])->name('restaurant.logout');
 
 
 Route::middleware(Restaurant::class)->group(function () {
     Route::get('/restaurant/dashboard', [RestaurantController::class, 'restaurantDashboard'])->name('restaurant.dashboard');
+    
+    Route::get('/restaurant/profile', [RestaurantController::class, 'restaurantProfile'])->name('restaurant.profile');
+    Route::post('/restaurant/profile', [RestaurantController::class, 'restaurantProfileStore'])->name('restaurant.profile.store');
+
+    Route::get('/restaurant/change-password', [RestaurantController::class, 'restaurantChangePassword'])->name('restaurant.change.password');
+    Route::post('/restaurant/change-password-update', [RestaurantController::class, 'restaurantChangePasswordUpdate'])->name('restaurant.change.password.update');
 });
