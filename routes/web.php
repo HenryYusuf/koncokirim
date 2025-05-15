@@ -3,13 +3,16 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Restaurant;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [UserController::class, 'index'])->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
