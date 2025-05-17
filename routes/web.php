@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
@@ -29,25 +30,39 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
-Route::post('/admin/login-submit', [AdminController::class, 'adminLoginSubmit'])->name('admin.login_submit');
 
-Route::get('/admin/forget-password', [AdminController::class, 'adminForgetPassword'])->name('admin.forget_password');
-Route::post('/admin/forget-password-submit', [AdminController::class, 'adminForgetPasswordSubmit'])->name('admin.forget_password_submit');
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+    Route::post('/login-submit', [AdminController::class, 'adminLoginSubmit'])->name('admin.login_submit');
 
-Route::get('/admin/reset-password/{tokem}/{email}', [AdminController::class, 'adminResetPassword']);
-Route::post('/admin/reset-password-submit', [AdminController::class, 'adminResetPasswordSubmit'])->name('admin.reset_password_submit');
+    Route::get('/forget-password', [AdminController::class, 'adminForgetPassword'])->name('admin.forget_password');
+    Route::post('/forget-password-submit', [AdminController::class, 'adminForgetPasswordSubmit'])->name('admin.forget_password_submit');
 
-Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+    Route::get('/reset-password/{token}/{email}', [AdminController::class, 'adminResetPassword']);
+    Route::post('/reset-password-submit', [AdminController::class, 'adminResetPasswordSubmit'])->name('admin.reset_password_submit');
 
-Route::middleware(Admin::class)->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 
-    Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
-    Route::post('/admin/profile', [AdminController::class, 'adminProfileStore'])->name('admin.profile.store');
 
-    Route::get('/admin/change-password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
-    Route::post('/admin/change-password-update', [AdminController::class, 'adminChangePasswordUpdate'])->name('admin.change.password.update');
+    Route::middleware(Admin::class)->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'adminDashboard'])->name('admin.dashboard');
+
+        Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
+        Route::post('/profile', [AdminController::class, 'adminProfileStore'])->name('admin.profile.store');
+
+        Route::get('/change-password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
+        Route::post('/change-password-update', [AdminController::class, 'adminChangePasswordUpdate'])->name('admin.change.password.update');
+
+        // All admin category controller
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/all/category', 'adminAllCategory')->name('admin.all.category');
+            Route::get('/add/category', 'adminAddCategory')->name('admin.add.category');
+            Route::post('/add/category-store', 'adminAddCategoryStore')->name('admin.category.store');
+            Route::get('/edit/category/{category}', 'adminEditCategory')->name('admin.edit.category');
+            Route::post('/edit/category-update', 'adminEditCategoryUpdate')->name('admin.category.update');
+            Route::get('/delete/category/{category}', 'adminDeleteCategoryUpdate')->name('admin.delete.category');
+        });
+    });
 });
 
 
@@ -69,7 +84,7 @@ Route::get('/restaurant/logout', [RestaurantController::class, 'restaurantLogout
 
 Route::middleware(Restaurant::class)->group(function () {
     Route::get('/restaurant/dashboard', [RestaurantController::class, 'restaurantDashboard'])->name('restaurant.dashboard');
-    
+
     Route::get('/restaurant/profile', [RestaurantController::class, 'restaurantProfile'])->name('restaurant.profile');
     Route::post('/restaurant/profile', [RestaurantController::class, 'restaurantProfileStore'])->name('restaurant.profile.store');
 
