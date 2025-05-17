@@ -101,10 +101,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="example-text-input" class="form-label">Cover Photo</label>
-                                            <input class="form-control" name="cover_photo" type="file" id="image">
+                                            <input class="form-control" name="cover_photo" type="file" id="coverPhoto">
                                         </div>
                                         <div class="mb-3">
-                                            <img id="showImage"
+                                            <img id="showCoverPhoto"
                                                 src="{{ !empty($profileData->cover_photo) ? url('upload/restaurant_images/' . $profileData->cover_photo) : url('upload/no_image.jpg') }}"
                                                 alt="" class="p-1 bg-primary" width="210" height="100">
                                         </div>
@@ -119,10 +119,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="example-text-input" class="form-label">Profile Image</label>
-                                            <input class="form-control" name="photo" type="file" id="image">
+                                            <input class="form-control" name="photo" type="file" id="profileImage">
                                         </div>
                                         <div class="mb-3">
-                                            <img id="showImage"
+                                            <img id="showProfileImage"
                                                 src="{{ !empty($profileData->photo) ? url('upload/restaurant_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
                                                 alt="" class="rounded-circle p-1 bg-primary" width="110">
                                         </div>
@@ -146,10 +146,20 @@
 
     <script>
         $(document).ready(function () {
-            $('#image').change(function (e) {
+            $('#profileImage').change(function (e) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    $('#showImage').attr('src', e.target.result);
+                    $('#showProfileImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0'])
+            })
+        })
+
+        $(document).ready(function () {
+            $('#coverPhoto').change(function (e) {
+                let reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#showCoverPhoto').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
             })

@@ -12,7 +12,8 @@ class CouponController extends Controller
 {
     public function restaurantAllCoupon()
     {
-        $coupons = Coupon::latest()->get();
+        $restaurantId = Auth::guard('restaurant')->id();
+        $coupons = Coupon::where('restaurant_id', $restaurantId)->latest()->get();
 
         return view('restaurant.backend.coupon.all_coupon', compact('coupons'));
     }

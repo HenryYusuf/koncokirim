@@ -13,7 +13,8 @@ class GalleryController extends Controller
 {
     public function restaurantAllGallery()
     {
-        $galleries = Gallery::latest()->get();
+        $restaurantId = Auth::guard('restaurant')->id();
+        $galleries = Gallery::where('restaurant_id', $restaurantId)->latest()->get();
 
         return view('restaurant.backend.gallery.all_gallery', compact('galleries'));
     }

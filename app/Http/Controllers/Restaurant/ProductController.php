@@ -18,15 +18,17 @@ class ProductController extends Controller
 {
     public function restaurantAllProduct()
     {
-        $products = Product::latest()->get();
+        $restaurantId = Auth::guard('restaurant')->id();
+        $products = Product::where('restaurant_id', $restaurantId)->orderBy('name', 'asc')->get();
         return view('restaurant.backend.product.all_product', compact('products'));
     }
 
     public function restaurantAddProduct()
     {
+        $restaurantId = Auth::guard('restaurant')->id();
         $categories = Category::orderBy('category_name', 'asc')->get();
         $cities = City::orderBy('city_name', 'asc')->get();
-        $menus = Menu::orderBy('menu_name', 'asc')->get();
+        $menus = Menu::where('restaurant_id', $restaurantId)->orderBy('menu_name', 'asc')->get();
 
         return view('restaurant.backend.product.add_product', compact('categories', 'cities', 'menus'));
     }
@@ -73,9 +75,10 @@ class ProductController extends Controller
 
     public function restaurantEditProduct(Product $product)
     {
+        $restaurantId = Auth::guard('restaurant')->id();
         $categories = Category::orderBy('category_name', 'asc')->get();
         $cities = City::orderBy('city_name', 'asc')->get();
-        $menus = Menu::orderBy('menu_name', 'asc')->get();
+        $menus = Menu::where('restaurant_id', $restaurantId)->orderBy('menu_name', 'asc')->get();
 
         return view('restaurant.backend.product.edit_product', compact('categories', 'cities', 'menus', 'product'));
     }
