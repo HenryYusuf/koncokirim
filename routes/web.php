@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\MenuController;
+use App\Http\Controllers\Restaurant\ProductController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
@@ -109,6 +110,18 @@ Route::prefix('restaurant')->group(function () {
             Route::get('/edit/menu/{menu}', 'restaurantEditMenu')->name('restaurant.edit.menu');
             Route::post('/edit/menu-update', 'restaurantEditMenuUpdate')->name('restaurant.menu.update');
             Route::get('/delete/menu/{menu}', 'restaurantDeleteMenu')->name('restaurant.delete.menu');
+        });
+
+        // All restaurant product controller
+        Route::controller(ProductController::class)->group(function () {
+            Route::get('/all/product', 'restaurantAllProduct')->name('restaurant.all.product');
+            Route::get('/add/product', 'restaurantAddProduct')->name('restaurant.add.product');
+            Route::post('/add/product-store', 'restaurantAddProductStore')->name('restaurant.product.store');
+            Route::get('/edit/product/{product}', 'restaurantEditProduct')->name('restaurant.edit.product');
+            Route::post('/edit/product-update', 'restaurantEditProductUpdate')->name('restaurant.product.update');
+            Route::get('/delete/product/{product}', 'restaurantDeleteProduct')->name('restaurant.delete.product');
+
+            Route::get('/change-status-product', 'restaurantChangeStatusProduct');
         });
     });
 });

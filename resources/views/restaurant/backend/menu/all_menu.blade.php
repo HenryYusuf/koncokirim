@@ -31,7 +31,7 @@
                             <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Sl</th>
+                                        <th>No</th>
                                         <th>Menu Name</th>
                                         <th>Image</th>
                                         <th>Action </th>
