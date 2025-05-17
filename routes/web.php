@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Restaurant\CouponController;
 use App\Http\Controllers\Restaurant\GalleryController;
 use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\ProductController;
@@ -133,6 +134,16 @@ Route::prefix('restaurant')->group(function () {
             Route::get('/edit/gallery/{gallery}', 'restaurantEditGallery')->name('restaurant.edit.gallery');
             Route::post('/edit/gallery-update', 'restaurantEditGalleryUpdate')->name('restaurant.gallery.update');
             Route::get('/delete/gallery/{gallery}', 'restaurantDeleteGallery')->name('restaurant.delete.gallery');
+        });
+
+        // All restaurant coupon controller
+        Route::controller(CouponController::class)->group(function () {
+            Route::get('/all/coupon', 'restaurantAllCoupon')->name('restaurant.all.coupon');
+            Route::get('/add/coupon', 'restaurantAddCoupon')->name('restaurant.add.coupon');
+            Route::post('/add/coupon-store', 'restaurantAddCouponStore')->name('restaurant.coupon.store');
+            Route::get('/edit/coupon/{coupon}', 'restaurantEditCoupon')->name('restaurant.edit.coupon');
+            Route::post('/edit/coupon-update', 'restaurantEditCouponUpdate')->name('restaurant.coupon.update');
+            Route::get('/delete/coupon/{coupon}', 'restaurantDeleteCoupon')->name('restaurant.delete.coupon');
         });
     });
 });
