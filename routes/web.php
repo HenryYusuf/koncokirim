@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Restaurant\GalleryController;
 use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\ProductController;
 use App\Http\Controllers\RestaurantController;
@@ -122,6 +123,16 @@ Route::prefix('restaurant')->group(function () {
             Route::get('/delete/product/{product}', 'restaurantDeleteProduct')->name('restaurant.delete.product');
 
             Route::get('/change-status-product', 'restaurantChangeStatusProduct');
+        });
+
+        // All restaurant gallery controller
+        Route::controller(GalleryController::class)->group(function () {
+            Route::get('/all/gallery', 'restaurantAllGallery')->name('restaurant.all.gallery');
+            Route::get('/add/gallery', 'restaurantAddGallery')->name('restaurant.add.gallery');
+            Route::post('/add/gallery-store', 'restaurantAddGalleryStore')->name('restaurant.gallery.store');
+            Route::get('/edit/gallery/{gallery}', 'restaurantEditGallery')->name('restaurant.edit.gallery');
+            Route::post('/edit/gallery-update', 'restaurantEditGalleryUpdate')->name('restaurant.gallery.update');
+            Route::get('/delete/gallery/{gallery}', 'restaurantDeleteGallery')->name('restaurant.delete.gallery');
         });
     });
 });
