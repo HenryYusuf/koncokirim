@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
@@ -61,6 +62,15 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/category/{category}', 'adminEditCategory')->name('admin.edit.category');
             Route::post('/edit/category-update', 'adminEditCategoryUpdate')->name('admin.category.update');
             Route::get('/delete/category/{category}', 'adminDeleteCategoryUpdate')->name('admin.delete.category');
+        });
+
+        // All admin city controller
+        Route::controller(CityController::class)->group(function () {
+            Route::get('/all/city', 'adminAllCity')->name('admin.all.city');
+            Route::post('/add/city-store', 'adminAddCityStore')->name('admin.city.store');
+            Route::get('/edit/city/{city}', 'adminEditCity')->name('admin.edit.city');
+            Route::post('/edit/city-update', 'adminEditCityUpdate')->name('admin.city.update');
+            Route::get('/delete/city/{city}', 'adminDeleteCityUpdate')->name('admin.delete.city');
         });
     });
 });
