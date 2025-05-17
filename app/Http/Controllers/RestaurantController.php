@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +82,9 @@ class RestaurantController extends Controller
         $id = Auth::guard('restaurant')->id();
         $profileData = Restaurant::find($id);
 
-        return view('restaurant.restaurant_profile', compact('profileData'));
+        $cities = City::latest()->get();
+
+        return view('restaurant.restaurant_profile', compact('profileData', 'cities'));
     }
 
     public function restaurantProfileStore(Request $request)
@@ -93,17 +96,31 @@ class RestaurantController extends Controller
         $data->email = $request->email;
         $data->phone = $request->phone;
         $data->address = $request->address;
+        $data->city_id = $request->city_id;
+        $data->shop_info = $request->shop_info;
 
         $oldPhotoPath = $data->photo;
+        $oldCoverPhotoPath = $data->cover_photo;
 
         if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('upload/restaurant_images'), $fileName);
-            $data->photo = $fileName;
+            $fileProfilePhoto = $request->file('photo');
+            $fileNamePhoto = time() . '.' . $fileProfilePhoto->getClientOriginalExtension();
+            $fileProfilePhoto->move(public_path('upload/restaurant_images'), $fileNamePhoto);
+            $data->photo = $fileNamePhoto;
 
-            if ($oldPhotoPath && $oldPhotoPath !== $fileName) {
+            if ($oldPhotoPath && $oldPhotoPath !== $fileNamePhoto) {
                 $this->deleteOldImage($oldPhotoPath);
+            }
+        }
+
+        if ($request->hasFile('cover_photo')) {
+            $fileCoverPhoto = $request->file('cover_photo');
+            $fileNameCoverPhoto = time() . '.' . $fileCoverPhoto->getClientOriginalExtension();
+            $fileCoverPhoto->move(public_path('upload/restaurant_images'), $fileNameCoverPhoto);
+            $data->cover_photo = $fileNameCoverPhoto;
+
+            if ($oldCoverPhotoPath && $oldCoverPhotoPath !== $fileNameCoverPhoto) {
+                $this->deleteOldImage($oldCoverPhotoPath);
             }
         }
 

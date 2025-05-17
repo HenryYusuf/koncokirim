@@ -1,6 +1,7 @@
 @extends('restaurant.restaurant_dashboard')
 @section('restaurant')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <div class="page-content">
         <div class="container-fluid">
@@ -83,6 +84,30 @@
                                             <input class="form-control" type="text" name="phone"
                                                 value="{{ $profileData->phone }}" id="example-text-input">
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="example-text-input" class="form-label">City Name</label>
+                                            <select class="form-select" name="city_id">
+                                                <option selected disabled>Select</option>
+                                                @foreach ($cities as $city)
+                                                    <option value="{{ $city->id }}" {{ $city->id == $profileData->city_id ? 'selected' : '' }}>{{$city->city_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="example-text-input" class="form-label">Restaurant Info</label>
+                                            <textarea id="basicpill-address-input" class="form-control" name="shop_info"
+                                                rows="2"
+                                                placeholder="Enter your shop info">{{$profileData->shop_info}}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="example-text-input" class="form-label">Cover Photo</label>
+                                            <input class="form-control" name="cover_photo" type="file" id="image">
+                                        </div>
+                                        <div class="mb-3">
+                                            <img id="showImage"
+                                                src="{{ !empty($profileData->cover_photo) ? url('upload/restaurant_images/' . $profileData->cover_photo) : url('upload/no_image.jpg') }}"
+                                                alt="" class="p-1 bg-primary" width="210" height="100">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -120,10 +145,10 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('#image').change(function(e) {
+        $(document).ready(function () {
+            $('#image').change(function (e) {
                 let reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
