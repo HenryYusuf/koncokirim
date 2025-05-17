@@ -88,7 +88,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function adminDeleteCategoryUpdate(Category $category)
+    public function adminDeleteCategory(Category $category)
     {
         $fullPath = public_path($category->image);
         if(file_exists($fullPath))

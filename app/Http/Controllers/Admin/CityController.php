@@ -51,7 +51,7 @@ class CityController extends Controller
         return redirect()->route('admin.all.city')->with($notification);
     }
 
-    public function adminDeleteCityUpdate(City $city)
+    public function adminDeleteCity(City $city)
     {
         $city->delete();
 
