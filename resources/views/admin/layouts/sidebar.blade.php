@@ -74,12 +74,22 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
-                        <i data-feather="users"></i>
-                        <span data-key="t-authentication">Authentication</span>
+                        <i data-feather="grid"></i>
+                        <span data-key="t-apps">Manage Restaurant</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="auth-login.html" data-key="t-login">Login</a></li>
-                        <li><a href="auth-register.html" data-key="t-register">Register</a></li>
+                        <li>
+                            <a href="{{ route('admin.all.pending.restaurant') }}">
+                                <span data-key="t-calendar">Pending Restaurant</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('admin.all.approve.restaurant') }}">
+                                <span data-key="t-chat">Approve Restaurant</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 

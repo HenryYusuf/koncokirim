@@ -171,4 +171,27 @@ class ManageController extends Controller
 
         return response()->json(['success' => 'Status Change Successful']);
     }
+
+    public function adminAllPendingRestaurant()
+    {
+        $restaurants = Restaurant::where('status', 0)->get();
+
+        return view('admin.backend.restaurant.pending_restaurant', compact('restaurants'));
+    }
+
+    public function adminAllApproveRestaurant()
+    {
+        $restaurants = Restaurant::where('status', 1)->get();
+
+        return view('admin.backend.restaurant.approve_restaurant', compact('restaurants'));
+    }
+
+    public function adminChangeStatusRestaurant(Request $request)
+    {
+        $restaurant = Restaurant::find($request->restaurant_id);
+        $restaurant->status = $request->status;
+        $restaurant->save();
+
+        return response()->json(['success' => 'Status Change Successful']);
+    }
 }

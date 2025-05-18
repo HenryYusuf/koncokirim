@@ -13,6 +13,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Restaurant;
+use App\Http\Middleware\RestaurantStatus;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -88,6 +89,11 @@ Route::prefix('admin')->group(function () {
             Route::get('/delete/product/{product}', 'adminDeleteProduct')->name('admin.delete.product');
 
             Route::get('/change-status-product', 'adminChangeStatusProduct');
+
+            Route::get('/pending/restaurant', 'adminAllPendingRestaurant')->name('admin.all.pending.restaurant');
+            Route::get('/approve/restaurant', 'adminAllApproveRestaurant')->name('admin.all.approve.restaurant');
+
+            Route::get('/change-status-restaurant', 'adminChangeStatusRestaurant');
         });
     });
 });
@@ -117,46 +123,48 @@ Route::prefix('restaurant')->group(function () {
         Route::get('/change-password', [RestaurantController::class, 'restaurantChangePassword'])->name('restaurant.change.password');
         Route::post('/change-password-update', [RestaurantController::class, 'restaurantChangePasswordUpdate'])->name('restaurant.change.password.update');
 
-        // All restaurant menu controller
-        Route::controller(MenuController::class)->group(function () {
-            Route::get('/all/menu', 'restaurantAllMenu')->name('restaurant.all.menu');
-            Route::get('/add/menu', 'restaurantAddMenu')->name('restaurant.add.menu');
-            Route::post('/add/menu-store', 'restaurantAddMenuStore')->name('restaurant.menu.store');
-            Route::get('/edit/menu/{menu}', 'restaurantEditMenu')->name('restaurant.edit.menu');
-            Route::post('/edit/menu-update', 'restaurantEditMenuUpdate')->name('restaurant.menu.update');
-            Route::get('/delete/menu/{menu}', 'restaurantDeleteMenu')->name('restaurant.delete.menu');
-        });
+        Route::middleware(RestaurantStatus::class)->group(function () {
+            // All restaurant menu controller
+            Route::controller(MenuController::class)->group(function () {
+                Route::get('/all/menu', 'restaurantAllMenu')->name('restaurant.all.menu');
+                Route::get('/add/menu', 'restaurantAddMenu')->name('restaurant.add.menu');
+                Route::post('/add/menu-store', 'restaurantAddMenuStore')->name('restaurant.menu.store');
+                Route::get('/edit/menu/{menu}', 'restaurantEditMenu')->name('restaurant.edit.menu');
+                Route::post('/edit/menu-update', 'restaurantEditMenuUpdate')->name('restaurant.menu.update');
+                Route::get('/delete/menu/{menu}', 'restaurantDeleteMenu')->name('restaurant.delete.menu');
+            });
 
-        // All restaurant product controller
-        Route::controller(ProductController::class)->group(function () {
-            Route::get('/all/product', 'restaurantAllProduct')->name('restaurant.all.product');
-            Route::get('/add/product', 'restaurantAddProduct')->name('restaurant.add.product');
-            Route::post('/add/product-store', 'restaurantAddProductStore')->name('restaurant.product.store');
-            Route::get('/edit/product/{product}', 'restaurantEditProduct')->name('restaurant.edit.product');
-            Route::post('/edit/product-update', 'restaurantEditProductUpdate')->name('restaurant.product.update');
-            Route::get('/delete/product/{product}', 'restaurantDeleteProduct')->name('restaurant.delete.product');
+            // All restaurant product controller
+            Route::controller(ProductController::class)->group(function () {
+                Route::get('/all/product', 'restaurantAllProduct')->name('restaurant.all.product');
+                Route::get('/add/product', 'restaurantAddProduct')->name('restaurant.add.product');
+                Route::post('/add/product-store', 'restaurantAddProductStore')->name('restaurant.product.store');
+                Route::get('/edit/product/{product}', 'restaurantEditProduct')->name('restaurant.edit.product');
+                Route::post('/edit/product-update', 'restaurantEditProductUpdate')->name('restaurant.product.update');
+                Route::get('/delete/product/{product}', 'restaurantDeleteProduct')->name('restaurant.delete.product');
 
-            Route::get('/change-status-product', 'restaurantChangeStatusProduct');
-        });
+                Route::get('/change-status-product', 'restaurantChangeStatusProduct');
+            });
 
-        // All restaurant gallery controller
-        Route::controller(GalleryController::class)->group(function () {
-            Route::get('/all/gallery', 'restaurantAllGallery')->name('restaurant.all.gallery');
-            Route::get('/add/gallery', 'restaurantAddGallery')->name('restaurant.add.gallery');
-            Route::post('/add/gallery-store', 'restaurantAddGalleryStore')->name('restaurant.gallery.store');
-            Route::get('/edit/gallery/{gallery}', 'restaurantEditGallery')->name('restaurant.edit.gallery');
-            Route::post('/edit/gallery-update', 'restaurantEditGalleryUpdate')->name('restaurant.gallery.update');
-            Route::get('/delete/gallery/{gallery}', 'restaurantDeleteGallery')->name('restaurant.delete.gallery');
-        });
+            // All restaurant gallery controller
+            Route::controller(GalleryController::class)->group(function () {
+                Route::get('/all/gallery', 'restaurantAllGallery')->name('restaurant.all.gallery');
+                Route::get('/add/gallery', 'restaurantAddGallery')->name('restaurant.add.gallery');
+                Route::post('/add/gallery-store', 'restaurantAddGalleryStore')->name('restaurant.gallery.store');
+                Route::get('/edit/gallery/{gallery}', 'restaurantEditGallery')->name('restaurant.edit.gallery');
+                Route::post('/edit/gallery-update', 'restaurantEditGalleryUpdate')->name('restaurant.gallery.update');
+                Route::get('/delete/gallery/{gallery}', 'restaurantDeleteGallery')->name('restaurant.delete.gallery');
+            });
 
-        // All restaurant coupon controller
-        Route::controller(CouponController::class)->group(function () {
-            Route::get('/all/coupon', 'restaurantAllCoupon')->name('restaurant.all.coupon');
-            Route::get('/add/coupon', 'restaurantAddCoupon')->name('restaurant.add.coupon');
-            Route::post('/add/coupon-store', 'restaurantAddCouponStore')->name('restaurant.coupon.store');
-            Route::get('/edit/coupon/{coupon}', 'restaurantEditCoupon')->name('restaurant.edit.coupon');
-            Route::post('/edit/coupon-update', 'restaurantEditCouponUpdate')->name('restaurant.coupon.update');
-            Route::get('/delete/coupon/{coupon}', 'restaurantDeleteCoupon')->name('restaurant.delete.coupon');
+            // All restaurant coupon controller
+            Route::controller(CouponController::class)->group(function () {
+                Route::get('/all/coupon', 'restaurantAllCoupon')->name('restaurant.all.coupon');
+                Route::get('/add/coupon', 'restaurantAddCoupon')->name('restaurant.add.coupon');
+                Route::post('/add/coupon-store', 'restaurantAddCouponStore')->name('restaurant.coupon.store');
+                Route::get('/edit/coupon/{coupon}', 'restaurantEditCoupon')->name('restaurant.edit.coupon');
+                Route::post('/edit/coupon-update', 'restaurantEditCouponUpdate')->name('restaurant.coupon.update');
+                Route::get('/delete/coupon/{coupon}', 'restaurantDeleteCoupon')->name('restaurant.delete.coupon');
+            });
         });
     });
 });

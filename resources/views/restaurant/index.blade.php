@@ -1,7 +1,21 @@
 @extends('restaurant.restaurant_dashboard')
 @section('restaurant')
+
+    @php
+        $id = Auth::guard('restaurant')->id();
+        $restaurant = App\Models\Restaurant::find($id);
+        $status = $restaurant->status;
+    @endphp
+
     <div class="page-content">
         <div class="container-fluid">
+
+            @if ($status == 1)
+                <h4>Restaurant Account is <span class="text-success">Active</span></h4>
+            @else
+                <h4>Restaurant Account is <span class="text-danger">Inactive</span></h4>
+                <p class="text-danger"><b>Please wait admin will check and approve your account</b></p>
+            @endif
 
             <!-- start page title -->
             <div class="row">
