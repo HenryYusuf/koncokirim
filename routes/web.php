@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageController;
@@ -79,7 +80,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/delete/city/{city}', 'adminDeleteCity')->name('admin.delete.city');
         });
 
-        // All admin product controller
+        // All admin manage controller
         Route::controller(ManageController::class)->group(function () {
             Route::get('/all/product', 'adminAllProduct')->name('admin.all.product');
             Route::get('/add/product', 'adminAddProduct')->name('admin.add.product');
@@ -87,13 +88,20 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/product/{product}', 'adminEditProduct')->name('admin.edit.product');
             Route::post('/edit/product-update', 'adminEditProductUpdate')->name('admin.product.update');
             Route::get('/delete/product/{product}', 'adminDeleteProduct')->name('admin.delete.product');
-
             Route::get('/change-status-product', 'adminChangeStatusProduct');
 
             Route::get('/pending/restaurant', 'adminAllPendingRestaurant')->name('admin.all.pending.restaurant');
             Route::get('/approve/restaurant', 'adminAllApproveRestaurant')->name('admin.all.approve.restaurant');
-
             Route::get('/change-status-restaurant', 'adminChangeStatusRestaurant');
+        });
+
+        // All admin banner controller
+        Route::controller(BannerController::class)->group(function () {
+            Route::get('/all/banner', 'adminAllBanner')->name('admin.all.banner');
+            Route::post('/add/banner-store', 'adminAddBannerStore')->name('admin.banner.store');
+            Route::get('/edit/banner/{banner}', 'adminEditBanner')->name('admin.edit.banner');
+            Route::post('/edit/banner-update', 'adminEditBannerUpdate')->name('admin.banner.update');
+            Route::get('/delete/banner/{banner}', 'adminDeleteBanner')->name('admin.delete.banner');
         });
     });
 });
