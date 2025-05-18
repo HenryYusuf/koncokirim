@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\CouponController;
@@ -75,6 +76,18 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/city/{city}', 'adminEditCity')->name('admin.edit.city');
             Route::post('/edit/city-update', 'adminEditCityUpdate')->name('admin.city.update');
             Route::get('/delete/city/{city}', 'adminDeleteCity')->name('admin.delete.city');
+        });
+
+        // All admin product controller
+        Route::controller(ManageController::class)->group(function () {
+            Route::get('/all/product', 'adminAllProduct')->name('admin.all.product');
+            Route::get('/add/product', 'adminAddProduct')->name('admin.add.product');
+            Route::post('/add/product-store', 'adminAddProductStore')->name('admin.product.store');
+            Route::get('/edit/product/{product}', 'adminEditProduct')->name('admin.edit.product');
+            Route::post('/edit/product-update', 'adminEditProductUpdate')->name('admin.product.update');
+            Route::get('/delete/product/{product}', 'adminDeleteProduct')->name('admin.delete.product');
+
+            Route::get('/change-status-product', 'adminChangeStatusProduct');
         });
     });
 });

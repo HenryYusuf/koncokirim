@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsTo(Menu::class, 'menu_id', 'id');
     }
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class, 'restaurant_id', 'id');
+    }
 }
