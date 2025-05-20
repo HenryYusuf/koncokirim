@@ -57,18 +57,19 @@
                                         </div>
                                     @else
                                     @endif
-                                    <a href="detail.html">
+                                    <a href="{{ route('user.restaurant.details', $restaurant->id) }}">
                                         <img src="{{ asset($restaurant->photo !== null ? 'upload/restaurant_images/' . $restaurant->photo : 'upload/no_image.jpg') }}"
                                             class="img-fluid item-img fixed-size-img">
                                     </a>
                                 </div>
                                 <div class="p-3 position-relative">
                                     <div class="list-card-body">
-                                        <h6 class="mb-1"><a href="detail.html" class="text-black">{{$restaurant->name}}</a></h6>
+                                        <h6 class="mb-1"><a href="{{ route('user.restaurant.details', $restaurant->id) }}"
+                                                class="text-black">{{$restaurant->name}}</a></h6>
                                         <p class="text-gray mb-3">{{$menuNamesString}}</p>
                                         <p class="text-gray mb-3 time"><span
                                                 class="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2"><i
-                                                    class="icofont-wall-clock"></i> 20–25 min</span></p>
+                                                    class="icofont-wall-clock"></i> 15–30 min</span></p>
                                     </div>
                                     <div class="list-card-badge">
                                         @if ($coupon)

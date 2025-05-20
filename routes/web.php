@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\CouponController;
 use App\Http\Controllers\Restaurant\GalleryController;
@@ -37,6 +38,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/restaurant/details/{restaurant}', 'restaurantDetails')->name('user.restaurant.details');
+});
 
 
 Route::prefix('admin')->group(function () {
