@@ -49,7 +49,7 @@
                                 <div class="list-card-image">
                                     <div class="star position-absolute"><span class="badge badge-success"><i
                                                 class="icofont-star"></i> 3.1 (300+)</span></div>
-                                    <div class="favourite-heart text-danger position-absolute"><a href="detail.html"><i
+                                    <div class="favourite-heart text-danger position-absolute"><a aria-label="Add to Whishlist" onclick="addWishList({{ $restaurant->id }})"><i
                                                 class="icofont-heart"></i></a></div>
                                     @if ($coupon)
                                         <div class="member-plan position-absolute">

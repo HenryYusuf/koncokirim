@@ -13,6 +13,7 @@ use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\ProductController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\Restaurant;
 use App\Http\Middleware\RestaurantStatus;
@@ -35,12 +36,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password-update', [UserController::class, 'changePasswordUpdate'])->name('change.password.update');
 
     Route::get('/user-logout', [UserController::class, 'userLogout'])->name('user.logout');
+
+    // Wishlist or Favourites
+    Route::get('/dashboard/all/wishlist', [WishlistController::class, 'userAllWishlist'])->name('user.all.wishlist');
+    Route::get('/dashboard/remove/wishlist/{wishlist}', [WishlistController::class, 'userRemoveWishlist'])->name('user.remove.wishlist');
 });
 
 require __DIR__ . '/auth.php';
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/restaurant/details/{restaurant}', 'restaurantDetails')->name('user.restaurant.details');
+    Route::post('/add-wish-list/{id}', 'addWishList');
 });
 
 
