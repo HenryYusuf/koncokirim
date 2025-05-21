@@ -1,4 +1,5 @@
-@include('frontend.dashboard.header')
+@extends('frontend.dashboard.dashboard')
+@section('user')
 
 @php
     $products = App\Models\Product::where('restaurant_id', $restaurant->id)->limit(3)->get();
@@ -621,4 +622,4 @@
     </div>
 </section>
 
-@include('frontend.dashboard.footer')
+@endsection
