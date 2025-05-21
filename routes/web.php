@@ -54,6 +54,9 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/add-to-cart/{id}', 'addToCart')->name('user.add.to.cart');
     Route::post('/cart/update-quantity', 'cartUpdateQuantity')->name('user.cart.update.quantity');
     Route::post('/cart/delete', 'cartDelete')->name('user.cart.delete');
+
+    Route::post('/apply-coupon', 'applyCoupon');
+    Route::get('/remove-coupon', 'removeCoupon');
 });
 
 

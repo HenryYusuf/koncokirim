@@ -87,6 +87,83 @@
         });
     </script>
 
+    <script>
+        function applyCoupon() {
+            let coupon_name = $('#coupon_name').val();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    coupon_name: coupon_name
+                },
+                url: '/apply-coupon',
+                success: function(data) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 6000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success,
+                        })
+
+                        location.reload()
+
+                    } else {
+
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error,
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+
+    <script>
+        function couponRemove() {
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '/remove-coupon',
+                success: function(data) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 6000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success,
+                        })
+
+                        location.reload();
+
+                    } else {
+
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error,
+                        })
+                    }
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>
