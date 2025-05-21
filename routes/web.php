@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\CouponController;
@@ -47,6 +48,12 @@ require __DIR__ . '/auth.php';
 Route::controller(HomeController::class)->group(function () {
     Route::get('/restaurant/details/{restaurant}', 'restaurantDetails')->name('user.restaurant.details');
     Route::post('/add-wish-list/{id}', 'addWishList');
+});
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('/add-to-cart/{id}', 'addToCart')->name('user.add.to.cart');
+    Route::post('/cart/update-quantity', 'cartUpdateQuantity')->name('user.cart.update.quantity');
+    Route::post('/cart/delete', 'cartDelete')->name('user.cart.delete');
 });
 
 
