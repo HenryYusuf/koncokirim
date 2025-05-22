@@ -55,38 +55,74 @@
                         </a>
                     </li>
                 @endauth
+
+                @php
+                    $total = 0;
+                    $carts = Session::get('cart', []);
+                    $groupedCart = [];
+
+                    foreach ($carts as $key => $cart) {
+                        $groupedCart[$cart['restaurant_id']][] = $cart;
+                    }
+
+                    $restaurants = App\Models\Restaurant::whereIn('id', array_keys($groupedCart))->get()->keyBy('id');
+                @endphp
+
                 <li class="nav-item dropdown dropdown-cart">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-shopping-basket"></i> Cart
-                        <span class="badge badge-success">5</span>
+                        <span class="badge badge-success">{{ count((array) Session::get('cart')) }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-cart-top p-0 dropdown-menu-right shadow-sm border-0">
-                        <div class="dropdown-cart-top-header p-4">
-                            <img class="img-fluid mr-3" alt="osahan" src="img/cart.jpg">
-                            <h6 class="mb-0">Gus's World Famous Chicken</h6>
-                            <p class="text-secondary mb-0">310 S Front St, Memphis, USA</p>
-                            <small><a class="text-primary font-weight-bold" href="#">View Full Menu</a></small>
-                        </div>
+                        @foreach ($groupedCart as $restaurantId => $items)
+                            @if (isset($restaurants[$restaurantId]))
+                                @php
+                                    $restaurant = $restaurants[$restaurantId];
+                                @endphp
+                                <div class="dropdown-cart-top-header p-4">
+                                    <img class="img-fluid mr-3" alt="osahan"
+                                        src="{{ asset($restaurant->photo !== null ? 'upload/restaurant_images/' . $restaurant->photo : 'upload/no_image.jpg') }}">
+                                    <h6 class="mb-0">{{ $restaurant->name }}</h6>
+                                    <p class="text-secondary mb-0">{{ $restaurant->address }}</p>
+                                    <small><a class="text-primary font-weight-bold" href="#">View Full
+                                            Menu</a></small>
+                                </div>
+                            @endif
+                        @endforeach
+
                         <div class="dropdown-cart-top-body border-top p-4">
-                            <p class="mb-2"><i class="icofont-ui-press text-danger food-item"></i> Chicken Tikka Sub
-                                12" (30 cm) x 1 <span class="float-right text-secondary">$314</span></p>
-                            <p class="mb-2"><i class="icofont-ui-press text-success food-item"></i> Corn & Peas
-                                Salad x 1 <span class="float-right text-secondary">$209</span></p>
-                            <p class="mb-2"><i class="icofont-ui-press text-success food-item"></i> Veg Seekh Sub 6"
-                                (15 cm) x 1 <span class="float-right text-secondary">$133</span></p>
-                            <p class="mb-2"><i class="icofont-ui-press text-danger food-item"></i> Chicken Tikka Sub
-                                12" (30 cm) x 1 <span class="float-right text-secondary">$314</span></p>
-                            <p class="mb-2"><i class="icofont-ui-press text-danger food-item"></i> Corn & Peas Salad
-                                x 1 <span class="float-right text-secondary">$209</span></p>
+                            @php
+                                $total = 0;
+                            @endphp
+
+                            @if (Session::get('cart'))
+                                @foreach (Session::get('cart') as $id => $details)
+                                    @php
+                                        $total += $details['price'] * $details['quantity'];
+                                    @endphp
+                                    <p class="mb-2"><i class="icofont-ui-press text-danger food-item"></i>
+                                        {{ $details['name'] }} x {{ $details['quantity'] }}
+                                        <span
+                                            class="float-right text-secondary">{{ number_format($details['price'] * $details['quantity'], 0, ',', '.') }}</span>
+                                    </p>
+                                @endforeach
+                            @endif
                         </div>
+
                         <div class="dropdown-cart-top-footer border-top p-4">
                             <p class="mb-0 font-weight-bold text-secondary">Sub Total <span
-                                    class="float-right text-dark">$499</span></p>
+                                    class="float-right text-dark">
+                                    @if (Session::has('coupon'))
+                                        Rp {{ number_format(Session::get('coupon')['discount_amount'], 0, ',', '.') }}
+                                    @else
+                                        Rp {{ number_format($total, 0, ',', '.') }}
+                                    @endif
+                                </span></p>
                             <small class="text-info">Extra charges may apply</small>
                         </div>
                         <div class="dropdown-cart-top-footer border-top p-2">
-                            <a class="btn btn-success btn-block btn-lg" href="checkout.html"> Checkout</a>
+                            <a class="btn btn-success btn-block btn-lg" href="{{ route('user.checkout') }}"> Checkout</a>
                         </div>
                     </div>
                 </li>
