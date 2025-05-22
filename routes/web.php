@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ManageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\CouponController;
 use App\Http\Controllers\Restaurant\GalleryController;
@@ -59,6 +60,10 @@ Route::controller(CartController::class)->group(function () {
     Route::get('/remove-coupon', 'removeCoupon');
 
     Route::get('/checkout', 'checkoutCart')->name('user.checkout');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::post('/cash-order', 'userCashOrder')->name('user.cash_order');
 });
 
 

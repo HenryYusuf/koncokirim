@@ -85,7 +85,7 @@
                                         src="{{ asset($restaurant->photo !== null ? 'upload/restaurant_images/' . $restaurant->photo : 'upload/no_image.jpg') }}">
                                     <h6 class="mb-0">{{ $restaurant->name }}</h6>
                                     <p class="text-secondary mb-0">{{ $restaurant->address }}</p>
-                                    <small><a class="text-primary font-weight-bold" href="#">View Full
+                                    <small><a class="text-primary font-weight-bold" href="{{ route('user.restaurant.details', $restaurant->id) }}">View Full
                                             Menu</a></small>
                                 </div>
                             @endif
