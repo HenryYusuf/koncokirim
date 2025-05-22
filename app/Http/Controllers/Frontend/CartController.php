@@ -7,6 +7,7 @@ use App\Models\Coupon;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -127,8 +128,39 @@ class CartController extends Controller
         }
     }
 
-    public function removeCoupon(){
+    public function removeCoupon()
+    {
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Removed Successful']);
+    }
+
+    public function checkoutCart()
+    {
+        if (Auth::check()) {
+            $carts = Session::get('cart', []);
+            $totalAmount = 0;
+
+            foreach ($carts as $key => $cart) {
+                $totalAmount += $cart['price'];
+            }
+
+            if ($totalAmount > 0) {
+                return view('frontend.checkout.view_checkout', compact('cart'));
+            } else {
+                $notifiaction = array(
+                    'message' => 'Shopping at least one item',
+                    'alert-type' => 'error'
+                );
+
+                return redirect()->to('/')->with($notifiaction);
+            }
+        } else {
+            $notifiaction = array(
+                'message' => 'Please Login First',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->route('login')->with($notifiaction);
+        }
     }
 }
