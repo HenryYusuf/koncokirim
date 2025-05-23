@@ -459,7 +459,7 @@
                                     <h5 class="mb-1">All Ratings and Reviews</h5>
                                     <div class="reviews-members pt-4 pb-4">
                                         <div class="media">
-                                            <a href="#"><img alt="Generic placeholder image" src="img/user/1.png"
+                                            <a href="#"><img alt="Generic placeholder image" src="{{ asset('frontend/img/user/1.png') }}"
                                                     class="mr-3 rounded-pill"></a>
                                             <div class="media-body">
                                                 <div class="reviews-members-header">
