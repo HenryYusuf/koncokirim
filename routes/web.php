@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ManageController;
+use App\Http\Controllers\Admin\ManageOrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -130,6 +131,22 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/banner/{banner}', 'adminEditBanner')->name('admin.edit.banner');
             Route::post('/edit/banner-update', 'adminEditBannerUpdate')->name('admin.banner.update');
             Route::get('/delete/banner/{banner}', 'adminDeleteBanner')->name('admin.delete.banner');
+        });
+
+        // All admin manage order controller
+        Route::controller(ManageOrderController::class)->group(function () {
+            Route::get('/pending/orders', 'adminPendingOrders')->name('admin.pending.orders');
+            Route::get('/confirm/orders', 'adminConfirmOrders')->name('admin.confirm.orders');
+            Route::get('/processing/orders', 'adminProcessingOrders')->name('admin.processing.orders');
+            Route::get('/delivered/orders', 'adminDeliveredOrders')->name('admin.delivered.orders');
+            Route::get('/canceled/orders', 'adminCanceledOrders')->name('admin.canceled.orders');
+            
+            Route::get('/order/details/{order}', 'adminOrderDetails')->name('admin.order.details');
+
+            Route::get('/order/pending/to/confirm/{id}', 'adminPendingToConfirmOrder')->name('admin.order.pending_to_confirm');
+            Route::get('/order/confirm/to/processing/{id}', 'adminConfirmToProcessingOrder')->name('admin.order.confirm_to_processing');
+            Route::get('/order/processing/to/delivered/{id}', 'adminProcessingToDeliveredOrder')->name('admin.order.processing_to_delivered');
+            Route::get('/order/cancel/{id}', 'adminCancelOrder')->name('admin.order.cancel');
         });
     });
 });
