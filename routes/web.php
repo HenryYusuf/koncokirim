@@ -14,6 +14,7 @@ use App\Http\Controllers\Restaurant\CouponController;
 use App\Http\Controllers\Restaurant\GalleryController;
 use App\Http\Controllers\Restaurant\MenuController;
 use App\Http\Controllers\Restaurant\ProductController;
+use App\Http\Controllers\Restaurant\ManageOrderController as RestaurantManageOrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WishlistController;
@@ -217,6 +218,12 @@ Route::prefix('restaurant')->group(function () {
                 Route::get('/edit/coupon/{coupon}', 'restaurantEditCoupon')->name('restaurant.edit.coupon');
                 Route::post('/edit/coupon-update', 'restaurantEditCouponUpdate')->name('restaurant.coupon.update');
                 Route::get('/delete/coupon/{coupon}', 'restaurantDeleteCoupon')->name('restaurant.delete.coupon');
+            });
+
+            // All restaurant coupon controller
+            Route::controller(RestaurantManageOrderController::class)->group(function () {
+                Route::get('/all/orders', 'restaurantAllOrders')->name('restaurant.all.orders');
+                Route::get('/order/details/{order}', 'restaurantOrderDetails')->name('restaurant.order.details');
             });
         });
     });

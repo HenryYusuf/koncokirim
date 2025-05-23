@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('restaurant.restaurant_dashboard')
+@section('restaurant')
     <div class="page-content">
         <div class="container-fluid">
 
@@ -115,30 +115,6 @@
                                             <th width="50%">Order Status: </th>
                                             <td>
                                                 <span class="badge bg-info">{{ $order->status }}</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th width="50%"></th>
-                                            <td>
-                                                @if ($order->status == 'Pending')
-                                                    <a href="{{ route('admin.order.pending_to_confirm', $order->id) }}"
-                                                        class="btn btn-block btn-success" id="confirmOrder">Confirm
-                                                        Order</a>
-                                                    <a href="{{ route('admin.order.cancel', $order->id) }}"
-                                                        class="btn btn-block btn-danger" id="cancelOrder">Cancel Order</a>
-                                                @elseif ($order->status == 'Confirm')
-                                                    <a href="{{ route('admin.order.confirm_to_processing', $order->id) }}"
-                                                        class="btn btn-block btn-success" id="processingOrder">Processing
-                                                        Order</a>
-                                                    <a href="{{ route('admin.order.cancel', $order->id) }}"
-                                                        class="btn btn-block btn-danger" id="cancelOrder">Cancel Order</a>
-                                                @elseif ($order->status == 'Processing')
-                                                    <a href="{{ route('admin.order.processing_to_delivered', $order->id) }}"
-                                                        class="btn btn-block btn-success" id="deliveredOrder">Delivered
-                                                        Order</a>
-                                                    <a href="{{ route('admin.order.cancel', $order->id) }}"
-                                                        class="btn btn-block btn-danger" id="cancelOrder">Cancel Order</a>
-                                                @endif
                                             </td>
                                         </tr>
                                     </tbody>
