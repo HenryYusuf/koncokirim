@@ -114,7 +114,8 @@
                                                                 placeholder="Card number">
                                                             <div class="input-group-append">
                                                                 <button class="btn btn-outline-secondary" type="button"
-                                                                    id="button-addon2"><i class="icofont-card"></i></button>
+                                                                    id="button-addon2"><i
+                                                                        class="icofont-card"></i></button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -237,17 +238,21 @@
                                         @endif
                                     </span>
                                 </p>
+                                <p class="mb-2">Service Fee <span class="float-right text-dark">
+                                        Rp {{ number_format(2000, 0, ',', '.') }}</span></p>
                                 <hr />
                                 <h6 class="font-weight-bold mb-0">TO PAY <span class="float-right">
                                         @if (Session::has('coupon'))
-                                            Rp {{ number_format(Session::get('coupon')['discount_amount'], 0, ',', '.') }}
+                                            Rp {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
                                         @else
-                                            Rp {{ number_format($total, 0, ',', '.') }}
+                                            Rp {{ number_format($total + 2000, 0, ',', '.') }}
                                         @endif
                                     </span></h6>
                             </div>
                         @else
                             <div class="mb-2 bg-white rounded p-2 clearfix">
+                                <p class="mb-2">Service Fee <span class="float-right text-dark">
+                                        Rp {{ number_format(2000, 0, ',', '.') }}</span></p>
                                 <div class="input-group input-group-sm mb-2">
                                     <input type="text" class="form-control" placeholder="Enter promo code"
                                         id="coupon_name">
@@ -261,12 +266,12 @@
 
 
 
-                        <a href="thanks.html" class="btn btn-success btn-block btn-lg">PAY @if (Session::has('coupon'))
-                                Rp {{ number_format(Session::get('coupon')['discount_amount'], 0, ',', '.') }}
+                        <a href="#" class="btn btn-secondary btn-block btn-lg">PAY @if (Session::has('coupon'))
+                                Rp {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
                             @else
-                                Rp {{ number_format($total, 0, ',', '.') }}
+                                Rp {{ number_format($total + 2000, 0, ',', '.') }}
                             @endif
-                            <i class="icofont-long-arrow-right"></i></a>
+                        </a>
                     </div>
                     <div class="pt-2"></div>
                 </div>
