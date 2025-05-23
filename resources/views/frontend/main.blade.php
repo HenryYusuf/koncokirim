@@ -43,7 +43,7 @@
 
     @yield('content')
 
-    @include('frontend.layouts.member')
+    {{-- @include('frontend.layouts.member') --}}
 
     @include('frontend.layouts.footer')
     <!-- jQuery -->

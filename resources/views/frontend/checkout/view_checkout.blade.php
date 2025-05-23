@@ -45,9 +45,8 @@
                                                     <p>NCC, Model Town Rd Town, Ludhiana, Punjab 141002, India
                                                     </p>
                                                     <p class="mb-0 text-black font-weight-bold"><a
-                                                            class="btn btn-sm btn-secondary mr-2" href="#"> DELIVER
-                                                            HERE</a>
-                                                        <span>40MIN</span>
+                                                            class="btn btn-sm btn-secondary mr-2" href="#"> COMING
+                                                            SOON <span>❤️</span></a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -67,10 +66,10 @@
                                         <a class="nav-link active" id="v-pills-cash-tab" data-toggle="pill"
                                             href="#v-pills-cash" role="tab" aria-controls="v-pills-cash"
                                             aria-selected="true"><i class="icofont-money"></i> Pay on Delivery</a>
-                                        <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                                        {{-- <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
                                             role="tab" aria-controls="v-pills-home" aria-selected="false"><i
                                                 class="icofont-credit-card"></i> Credit/Debit
-                                            Cards</a>
+                                            Cards</a> --}}
                                     </div>
                                 </div>
                                 <div class="col-sm-8 pl-0">
@@ -93,7 +92,7 @@
                                             </form>
                                         </div>
 
-                                        <div class="tab-pane fade" id="v-pills-home" role="tabpanel"
+                                        {{-- <div class="tab-pane fade" id="v-pills-home" role="tabpanel"
                                             aria-labelledby="v-pills-home-tab">
                                             <h6 class="mb-3 mt-0">Add new card</h6>
                                             <p>WE ACCEPT <span class="osahan-card">
@@ -153,7 +152,7 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +242,8 @@
                                 <hr />
                                 <h6 class="font-weight-bold mb-0">TO PAY <span class="float-right">
                                         @if (Session::has('coupon'))
-                                            Rp {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
+                                            Rp
+                                            {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
                                         @else
                                             Rp {{ number_format($total + 2000, 0, ',', '.') }}
                                         @endif
@@ -265,13 +265,32 @@
                         @endif
 
 
+                        <form action="{{ route('user.cash_order') }}" method="post">
+                            @csrf
 
-                        <a href="#" class="btn btn-secondary btn-block btn-lg">PAY @if (Session::has('coupon'))
+                            <input type="hidden" name="name" value="{{ Auth::user()->name }}">
+                            <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                            <input type="hidden" name="phone" value="{{ Auth::user()->phone }}">
+                            <input type="hidden" name="address" value="{{ Auth::user()->address }}">
+
+                            {{-- <button type="submit" class="btn btn-success btn-block btn-lg">PAY
+                                <i class="icofont-long-arrow-right"></i></button> --}}
+                            <button type="submit" class="btn btn-success btn-block btn-lg">PAY @if (Session::has('coupon'))
+                                    Rp {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
+                                    <i class="icofont-long-arrow-right"></i>
+                                @else
+                                    Rp {{ number_format($total + 2000, 0, ',', '.') }}
+                                    <i class="icofont-long-arrow-right"></i>
+                                @endif
+                            </button>
+                        </form>
+
+                        {{-- <a href="#" class="btn btn-secondary btn-block btn-lg">PAY @if (Session::has('coupon'))
                                 Rp {{ number_format(Session::get('coupon')['discount_amount'] + 2000, 0, ',', '.') }}
                             @else
                                 Rp {{ number_format($total + 2000, 0, ',', '.') }}
                             @endif
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="pt-2"></div>
                 </div>

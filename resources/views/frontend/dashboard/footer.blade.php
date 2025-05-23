@@ -1,4 +1,4 @@
-<section class="section pt-5 pb-5 text-center bg-white">
+{{-- <section class="section pt-5 pb-5 text-center bg-white">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -6,8 +6,8 @@
             </div>
         </div>
     </div>
-</section>
-<section class="footer pt-5 pb-5">
+</section> --}}
+{{-- <section class="footer pt-5 pb-5">
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-12 col-sm-12">
@@ -108,13 +108,12 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <footer class="pt-4 pb-4 text-center">
     <div class="container">
-        <p class="mt-0 mb-0">© Copyright 2020 Osahan Eat. All Rights Reserved</p>
+        <p class="mt-0 mb-0">© {{ Carbon\Carbon::now()->format('Y') }} KoncoKirim. All Rights Reserved</p>
         <small class="mt-0 mb-0"> Made with <i class="fas fa-heart heart-icon text-danger"></i> by
-            <a class="text-danger" target="_blank" href="https://www.instagram.com/iamgurdeeposahan/">Gurdeep Osahan</a>
-            - <a class="text-primary" target="_blank" href="https://askbootstrap.com/">Ask Bootstrap</a>
+            <a class="text-danger" href="#">KoncoKirim Team</a></a>
         </small>
     </div>
 </footer>

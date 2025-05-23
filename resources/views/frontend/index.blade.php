@@ -22,7 +22,7 @@
         <div class="container">
             <div class="section-header text-center">
                 <h2>Popular Restaurants</h2>
-                <p>Top restaurants, cafes, pubs, and bars in Munjungan, based on trends</p>
+                <p>Top restaurants in Munjungan, based on trends</p>
                 <span class="line"></span>
             </div>
             <div class="row">
@@ -47,8 +47,8 @@
                         <div class="item pb-3">
                             <div class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                 <div class="list-card-image">
-                                    <div class="star position-absolute"><span class="badge badge-success"><i
-                                                class="icofont-star"></i> 3.1 (300+)</span></div>
+                                    {{-- <div class="star position-absolute"><span class="badge badge-success"><i
+                                                class="icofont-star"></i> 3.1 (300+)</span></div> --}}
                                     <div class="favourite-heart text-danger position-absolute"><a aria-label="Add to Whishlist" onclick="addWishList({{ $restaurant->id }})"><i
                                                 class="icofont-heart"></i></a></div>
                                     @if ($coupon)

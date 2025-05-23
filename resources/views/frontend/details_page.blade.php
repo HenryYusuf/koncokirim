@@ -37,9 +37,9 @@
                         <div class="restaurant-detailed-header-right text-right">
                             <button class="btn btn-success" type="button"><i class="icofont-clock-time"></i> 25–35 min
                             </button>
-                            <h6 class="text-white mb-0 restaurant-detailed-ratings"><span
+                            {{-- <h6 class="text-white mb-0 restaurant-detailed-ratings"><span
                                     class="generator-bg rounded text-white"><i class="icofont-star"></i> 3.1</span> 23
-                                Ratings <i class="ml-3 icofont-speech-comments"></i> 91 reviews</h6>
+                                Ratings <i class="ml-3 icofont-speech-comments"></i> 91 reviews</h6> --}}
                         </div>
                     </div>
                 </div>
@@ -52,12 +52,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="restaurant-detailed-action-btn float-right">
-                        <button class="btn btn-light btn-sm border-light-btn" type="button"><i
+                        <button class="btn btn-light btn-sm border-light-btn" type="button" onclick="addWishList({{ $restaurant->id }})"><i
                                 class="icofont-heart text-danger"></i> Mark as Favourite</button>
-                        <button class="btn btn-light btn-sm border-light-btn" type="button"><i
+                        {{-- <button class="btn btn-light btn-sm border-light-btn" type="button"><i
                                 class="icofont-cauli-flower text-success"></i> Pure Veg</button>
                         <button class="btn btn-outline-danger btn-sm" type="button"><i class="icofont-sale-discount"></i>
-                            OFFERS</button>
+                            OFFERS</button> --}}
                     </span>
                     <ul class="nav" id="pills-tab" role="tablist">
                         <li class="nav-item">
@@ -69,7 +69,7 @@
                             <a class="nav-link" id="pills-gallery-tab" data-toggle="pill" href="#pills-gallery"
                                 role="tab" aria-controls="pills-gallery" aria-selected="false">Gallery</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" id="pills-restaurant-info-tab" data-toggle="pill"
                                 href="#pills-restaurant-info" role="tab" aria-controls="pills-restaurant-info"
                                 aria-selected="false">Restaurant Info</a>
@@ -81,7 +81,7 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-reviews-tab" data-toggle="pill" href="#pills-reviews"
                                 role="tab" aria-controls="pills-reviews" aria-selected="false">Ratings & Reviews</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
@@ -150,14 +150,14 @@
                                             <div
                                                 class="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                                 <div class="list-card-image">
-                                                    <div class="star position-absolute"><span
+                                                    {{-- <div class="star position-absolute"><span
                                                             class="badge badge-success"><i class="icofont-star"></i> 3.1
                                                             (300+)
                                                         </span></div>
                                                     <div class="favourite-heart text-danger position-absolute"><a
                                                             href="#"><i class="icofont-heart"></i></a></div>
                                                     <div class="member-plan position-absolute"><span
-                                                            class="badge badge-dark">Promoted</span></div>
+                                                            class="badge badge-dark">Promoted</span></div> --}}
                                                     <a href="#">
                                                         <img src="{{ asset($bestSeller->image) }}"
                                                             class="img-fluid item-img">
