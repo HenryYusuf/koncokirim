@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Frontend\ManageOrderController as UserManageOrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Restaurant\CouponController;
 use App\Http\Controllers\Restaurant\GalleryController;
@@ -44,6 +45,11 @@ Route::middleware('auth')->group(function () {
     // Wishlist or Favourites
     Route::get('/dashboard/all/wishlist', [WishlistController::class, 'userAllWishlist'])->name('user.all.wishlist');
     Route::get('/dashboard/remove/wishlist/{wishlist}', [WishlistController::class, 'userRemoveWishlist'])->name('user.remove.wishlist');
+
+    // Manage orders
+    Route::controller(UserManageOrderController::class)->group(function () {
+        Route::get('/dashboard/all/orders', 'userAllOrders')->name('user.all.orders');
+    });
 });
 
 require __DIR__ . '/auth.php';
