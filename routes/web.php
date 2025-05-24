@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
     // Manage orders
     Route::controller(UserManageOrderController::class)->group(function () {
         Route::get('/dashboard/all/orders', 'userAllOrders')->name('user.all.orders');
+        Route::get('/dashboard/order/details/{order}', 'userOrderDetails')->name('user.order.details');
+        Route::get('/dashboard/order/invoice/download/{order}', 'userOrderInvoiceDownload')->name('user.invoice.download');
     });
 });
 

@@ -53,13 +53,13 @@
                                                                     <span class="badge bg-danger text-white">Canceled</span>
                                                                 @endif
                                                             </td>
-                                                            <td class="d-flex">
-                                                                <a href="{{ route('admin.order.details', $item->id) }}"
-                                                                    class="mx-2 text-info">
+                                                            <td class="d-flex justify-content-between">
+                                                                <a href="{{ route('user.order.details', $item->id) }}"
+                                                                    class="text-info">
                                                                     <i class="fas fa-eye"></i>
                                                                 </a>
-                                                                <a href="{{ route('admin.order.details', $item->id) }}"
-                                                                    class="mx-2 text-black">
+                                                                <a href="{{ route('user.invoice.download', $item->id) }}"
+                                                                    class="text-black">
                                                                     <i class="fas fa-download"></i>
                                                                 </a>
                                                             </td>
