@@ -25,8 +25,9 @@ class ManageOrderController extends Controller
 
     public function restaurantOrderDetails(Order $order)
     {
+        $restaurantId = Auth::guard('restaurant')->id();
         $order = $order->load('user');
-        $orderItem = OrderItem::with('product')->where('order_id', $order->id)->orderBy('id', 'asc')->get();
+        $orderItem = OrderItem::with('product')->where('order_id', $order->id)->where('restaurant_id', $restaurantId)->orderBy('id', 'asc')->get();
 
         $totalPrice = 0;
         foreach ($orderItem as $key => $item) {
