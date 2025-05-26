@@ -53,13 +53,17 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="example-text-input" class="form-label">Profile
-                                                                Image</label>
-                                                            <input class="form-control" name="photo" type="file" id="image">
+                                                                Image (300x300 pixels)</label>
+                                                            <input class="form-control" name="photo" type="file"
+                                                                id="image"
+                                                                accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                                onchange="validateImageSize()">
                                                         </div>
                                                         <div class="mb-3">
                                                             <img id="showImage"
                                                                 src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
-                                                                alt="" class="rounded-circle p-1 bg-primary" width="110">
+                                                                alt="" class="rounded-circle p-1 bg-primary"
+                                                                width="110">
                                                         </div>
                                                         <div class="mt-4">
                                                             <button type="submit"
@@ -84,12 +88,29 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        
+
     <script>
-        $(document).ready(function () {
-            $('#image').change(function (e) {
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#image').change(function(e) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])

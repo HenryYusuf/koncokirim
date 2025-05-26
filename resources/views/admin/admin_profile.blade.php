@@ -1,6 +1,7 @@
 @extends('admin.admin_dashboard')
 @section('admin')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <div class="page-content">
         <div class="container-fluid">
@@ -93,8 +94,10 @@
                                                 value="{{ $profileData->address }}" id="example-text-input">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="example-text-input" class="form-label">Profile Image</label>
-                                            <input class="form-control" name="photo" type="file" id="image">
+                                            <label for="example-text-input" class="form-label">Profile Image (300x300 pixels)</label>
+                                            <input class="form-control" name="photo" type="file" id="image"
+                                                accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                onchange="validateImageSize()">
                                         </div>
                                         <div class="mb-3">
                                             <img id="showImage"
@@ -118,6 +121,23 @@
 
         </div> <!-- container-fluid -->
     </div>
+
+    <script>
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function() {

@@ -36,8 +36,9 @@
                                     <div class="col-lg-12">
                                         <div class="mt-3 mt-lg-0">
                                             <div class="form-group mb-3">
-                                                <label for="example-text-input" class="form-label">Gallery Image</label>
-                                                <input class="form-control" name="gallery_image" type="file" id="image">
+                                                <label for="example-text-input" class="form-label">Gallery Image (800x800 pixels)</label>
+                                                <input class="form-control" name="gallery_image" type="file" id="image" accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                    onchange="validateImageSize()">
                                             </div>
                                             <div class="mb-3">
                                                 <img id="showImage" src="{{ asset($gallery->gallery_image) }}" alt=""
@@ -61,6 +62,23 @@
 
         </div> <!-- container-fluid -->
     </div>
+
+    <script>
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function () {

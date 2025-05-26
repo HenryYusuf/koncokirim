@@ -37,10 +37,11 @@
                                         <div class="mt-3 mt-lg-0">
 
                                             <div class="form-group mb-3">
-                                                <label for="example-text-input" class="form-label">Gallery Image</label>
-                                                <input class="form-control" name="gallery_image[]" type="file" id="multiImg"
-                                                    multiple>
-                                                    <div class="mt-2 row" id="preview_img"></div>
+                                                <label for="example-text-input" class="form-label">Gallery Image (800x800 pixels)</label>
+                                                <input class="form-control" name="gallery_image[]" type="file"
+                                                    id="multiImg" accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                    onchange="validateImageSize()" multiple>
+                                                <div class="mt-2 row" id="preview_img"></div>
                                             </div>
 
                                             <div class="mt-4">
@@ -63,21 +64,41 @@
     </div>
 
     <script>
+        function validateImageSize() {
+            var fileInput = document.getElementById('multiImg');
+            var file = fileInput.files[0];
 
-        $(document).ready(function () {
-            $('#multiImg').on('change', function () { //on file input change
-                if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#multiImg').on('change', function() { //on file input change
+                if (window.File && window.FileReader && window.FileList && window
+                    .Blob) //check File API supported browser
                 {
                     var data = $(this)[0].files; //this file data
 
-                    $.each(data, function (index, file) { //loop though each file
-                        if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file.type)) { //check supported file type
+                    $.each(data, function(index, file) { //loop though each file
+                        if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file
+                                .type)) { //check supported file type
                             var fRead = new FileReader(); //new filereader
-                            fRead.onload = (function (file) { //trigger function on successful read
-                                return function (e) {
-                                    var img = $('<img/>').addClass('thumb').attr('src', e.target.result).width(100)
+                            fRead.onload = (function(file) { //trigger function on successful read
+                                return function(e) {
+                                    var img = $('<img/>').addClass('thumb').attr('src',
+                                            e.target.result).width(100)
                                         .height(80); //create image element 
-                                    $('#preview_img').append(img); //append image to output element
+                                    $('#preview_img').append(
+                                        img); //append image to output element
                                 };
                             })(file);
                             fRead.readAsDataURL(file); //URL representing the file's data.
@@ -89,6 +110,5 @@
                 }
             });
         });
-
     </script>
 @endsection

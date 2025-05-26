@@ -39,7 +39,8 @@
                                             <select class="form-select" name="category_id">
                                                 <option selected disabled>Select</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{$category->category_name}}</option>
+                                                    <option value="{{ $category->id }}">{{ $category->category_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,7 +51,7 @@
                                             <select class="form-select" name="menu_id">
                                                 <option selected disabled>Select</option>
                                                 @foreach ($menus as $menu)
-                                                    <option value="{{ $menu->id }}">{{$menu->menu_name}}</option>
+                                                    <option value="{{ $menu->id }}">{{ $menu->menu_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -61,7 +62,7 @@
                                             <select class="form-select" name="city_id">
                                                 <option selected disabled>Select</option>
                                                 @foreach ($cities as $city)
-                                                    <option value="{{ $city->id }}">{{$city->city_name}}</option>
+                                                    <option value="{{ $city->id }}">{{ $city->city_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -70,13 +71,15 @@
                                     <div class="col-xl-4 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="example-text-input" class="form-label">Product Name</label>
-                                            <input class="form-control" type="text" name="name" id="example-text-input">
+                                            <input class="form-control" type="text" name="name"
+                                                id="example-text-input">
                                         </div>
                                     </div>
                                     <div class="col-xl-4 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="example-text-input" class="form-label">Price</label>
-                                            <input class="form-control" type="text" name="price" id="example-text-input">
+                                            <input class="form-control" type="text" name="price"
+                                                id="example-text-input">
                                         </div>
                                     </div>
                                     <div class="col-xl-4 col-md-6">
@@ -90,20 +93,24 @@
                                     <div class="col-xl-6 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="example-text-input" class="form-label">Size</label>
-                                            <input class="form-control" type="text" name="size" id="example-text-input">
+                                            <input class="form-control" type="text" name="size"
+                                                id="example-text-input">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6">
                                         <div class="form-group mb-3">
                                             <label for="example-text-input" class="form-label">Product Quantity</label>
-                                            <input class="form-control" type="text" name="quantity" id="example-text-input">
+                                            <input class="form-control" type="text" name="quantity"
+                                                id="example-text-input">
                                         </div>
                                     </div>
 
                                     <div class="col-xl-6 col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="example-text-input" class="form-label">Product Image</label>
-                                            <input class="form-control" name="image" type="file" id="image">
+                                            <label for="example-text-input" class="form-label">Product Image (508x320 pixels)</label>
+                                            <input class="form-control" name="image" type="file" id="image"
+                                                accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                onchange="validateImageSize()">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6">
@@ -117,19 +124,20 @@
 
                                     <div>
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="checkbox" name="best_seller" value="1"
-                                                id="formCheck1">
+                                            <input class="form-check-input" type="checkbox" name="best_seller"
+                                                value="1" id="formCheck1">
                                             <label class="form-check-label" for="formCheck1">Best Seller</label>
                                         </div>
                                         <div class="form-check mt-2">
-                                            <input class="form-check-input" type="checkbox" name="most_popular" value="1"
-                                                id="formCheck2">
+                                            <input class="form-check-input" type="checkbox" name="most_popular"
+                                                value="1" id="formCheck2">
                                             <label class="form-check-label" for="formCheck2">Most Popular</label>
                                         </div>
                                     </div>
 
                                     <div class="mt-4">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save</button>
+                                        <button type="submit"
+                                            class="btn btn-primary waves-effect waves-light">Save</button>
                                     </div>
 
                                 </div>
@@ -146,10 +154,27 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#image').change(function (e) {
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#image').change(function(e) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
@@ -158,7 +183,7 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
                     category_id: {
@@ -193,23 +218,22 @@
                     },
                     image: {
                         required: 'Please Select Product Image',
-                    }, 
+                    },
 
 
                 },
                 errorElement: 'span',
-                errorPlacement: function (error, element) {
+                errorPlacement: function(error, element) {
                     error.addClass('invalid-feedback');
                     element.closest('.form-group').append(error);
                 },
-                highlight: function (element, errorClass, validClass) {
+                highlight: function(element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function (element, errorClass, validClass) {
+                unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 },
             });
         });
-
     </script>
 @endsection

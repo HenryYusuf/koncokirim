@@ -109,8 +109,9 @@
 
                                     <div class="col-xl-6 col-md-6">
                                         <div class="form-group mb-3">
-                                            <label for="example-text-input" class="form-label">Product Image</label>
-                                            <input class="form-control" name="image" type="file" id="image">
+                                            <label for="example-text-input" class="form-label">Product Image (508x320 pixels)</label>
+                                            <input class="form-control" name="image" type="file" id="image" accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                onchange="validateImageSize()">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-md-6">
@@ -151,6 +152,23 @@
 
         </div> <!-- container-fluid -->
     </div>
+
+    <script>
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function () {

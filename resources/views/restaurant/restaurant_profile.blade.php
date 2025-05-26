@@ -100,8 +100,9 @@
                                                 placeholder="Enter your shop info">{{$profileData->shop_info}}</textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="example-text-input" class="form-label">Cover Photo</label>
-                                            <input class="form-control" name="cover_photo" type="file" id="coverPhoto">
+                                            <label for="example-text-input" class="form-label">Cover Photo (1359x424 pixels)</label>
+                                            <input class="form-control" name="cover_photo" type="file" id="coverPhoto" accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                    onchange="validateCoverPhotoSize()">
                                         </div>
                                         <div class="mb-3">
                                             <img id="showCoverPhoto"
@@ -118,8 +119,9 @@
                                                 value="{{ $profileData->address }}" id="example-text-input">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="example-text-input" class="form-label">Profile Image</label>
-                                            <input class="form-control" name="photo" type="file" id="profileImage">
+                                            <label for="example-text-input" class="form-label">Profile Image (508x320 pixels)</label>
+                                            <input class="form-control" name="photo" type="file" id="profileImage" accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                    onchange="validateImageSize()">
                                         </div>
                                         <div class="mb-3">
                                             <img id="showProfileImage"
@@ -143,6 +145,40 @@
 
         </div> <!-- container-fluid -->
     </div>
+
+    <script>
+        function validateImageSize() {
+            var fileInput = document.getElementById('profileImage');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function validateCoverPhotoSize() {
+            var fileInput = document.getElementById('coverPhoto');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
 
     <script>
         $(document).ready(function () {

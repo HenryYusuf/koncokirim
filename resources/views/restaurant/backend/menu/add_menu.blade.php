@@ -29,7 +29,8 @@
 
                     <div class="card">
                         <div class="card-body p-4">
-                            <form id="myForm" action="{{ route('restaurant.menu.store') }}" method="post" enctype="multipart/form-data">
+                            <form id="myForm" action="{{ route('restaurant.menu.store') }}" method="post"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -44,8 +45,10 @@
                                     <div class="col-lg-12">
                                         <div class="mt-3 mt-lg-0">
                                             <div class="form-group mb-3">
-                                                <label for="example-text-input" class="form-label">Menu Image</label>
-                                                <input class="form-control" name="image" type="file" id="image">
+                                                <label for="example-text-input" class="form-label">Menu Image (300x300 pixels)</label>
+                                                <input class="form-control" name="image" type="file" id="image"
+                                                    accept="image/jpg, image/png, image/jpeg, image/webp"
+                                                    onchange="validateImageSize()">
                                             </div>
                                             <div class="mb-3">
                                                 <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt=""
@@ -71,10 +74,27 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#image').change(function (e) {
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#image').change(function(e) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
@@ -83,7 +103,7 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#myForm').validate({
                 rules: {
                     category_name: {
@@ -105,18 +125,17 @@
 
                 },
                 errorElement: 'span',
-                errorPlacement: function (error, element) {
+                errorPlacement: function(error, element) {
                     error.addClass('invalid-feedback');
                     element.closest('.form-group').append(error);
                 },
-                highlight: function (element, errorClass, validClass) {
+                highlight: function(element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function (element, errorClass, validClass) {
+                unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 },
             });
         });
-
     </script>
 @endsection

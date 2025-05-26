@@ -14,8 +14,8 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <button type="button" class="btn btn-primary waves-effect waves-light"
-                                    data-bs-toggle="modal" data-bs-target="#addBannerModal">Add Banner</button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+                                    data-bs-target="#addBannerModal">Add Banner</button>
                             </ol>
                         </div>
 
@@ -43,17 +43,19 @@
                                 <tbody>
                                     @foreach ($banners as $key => $item)
                                         <tr>
-                                            <td>{{$key + 1}}</td>
+                                            <td>{{ $key + 1 }}</td>
                                             <td>
-                                                <img src="{{asset($item->image)}}" alt="" style="width: 70px; height: 40px;" />
+                                                <img src="{{ asset($item->image) }}" alt=""
+                                                    style="width: 70px; height: 40px;" />
                                             </td>
-                                            <td>{{$item->url}}</td>
+                                            <td>{{ $item->url }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary waves-effect waves-light"
                                                     data-bs-toggle="modal" data-bs-target="#editBannerModal"
                                                     id="{{ $item->id }}" onclick="editBanner(this.id)">Edit</button>
                                                 <a href="{{ route('admin.delete.banner', $item->id) }}"
-                                                    class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                                    class="btn btn-danger waves-effect waves-light"
+                                                    id="delete">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -79,7 +81,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="myForm" action="{{ route('admin.banner.store') }}" method="post" enctype="multipart/form-data">
+                    <form id="myForm" action="{{ route('admin.banner.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12">
@@ -89,8 +92,10 @@
                                         <input class="form-control" type="text" name="url" id="example-text-input">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="example-text-input" class="form-label">Banner Image</label>
-                                        <input class="form-control" name="image" type="file" id="image">
+                                        <label for="example-text-input" class="form-label">Banner Image (400x400 pixels)</label>
+                                        <input class="form-control" name="image" type="file" id="image"
+                                            accept="image/jpg, image/png, image/jpeg, image/webp"
+                                            onchange="validateImageSize()">
                                     </div>
                                     <div class="form-group mb-3">
                                         <img id="showImage" src="{{ url('upload/no_image.jpg') }}" alt=""
@@ -120,7 +125,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="myForm" action="{{ route('admin.banner.update') }}" method="post" enctype="multipart/form-data">
+                    <form id="myForm" action="{{ route('admin.banner.update') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" id="bannerId">
                         <div class="row">
@@ -131,12 +137,14 @@
                                         <input class="form-control" type="text" name="url" id="bannerUrl">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="example-text-input" class="form-label">Banner Image</label>
-                                        <input class="form-control" name="image" type="file" id="editImage">
+                                        <label for="example-text-input" class="form-label">Banner Image (400x400 pixels)</label>
+                                        <input class="form-control" name="image" type="file" id="editImage"
+                                            accept="image/jpg, image/png, image/jpeg, image/webp"
+                                            onchange="validateEditImageSize()">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <img id="bannerImage" alt=""
-                                            class="rounded-circle p-1 bg-primary" width="110">
+                                        <img id="bannerImage" alt="" class="rounded-circle p-1 bg-primary"
+                                            width="110">
                                     </div>
                                 </div>
                             </div>
@@ -152,10 +160,44 @@
     </div><!-- /.modal -->
 
     <script>
-        $(document).ready(function () {
-            $('#image').change(function (e) {
+        function validateImageSize() {
+            var fileInput = document.getElementById('image');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function validateEditImageSize() {
+            var fileInput = document.getElementById('editImage');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var maxSizeMB = 1; // batas ukuran dalam MB
+                var maxSizeBytes = maxSizeMB * 1024 * 1024; // konversi ke bytes
+
+                if (file.size > maxSizeBytes) {
+                    alert("Ukuran gambar terlalu besar! Maksimal " + maxSizeMB + " MB.");
+                    fileInput.value = ""; // Reset input
+                }
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#image').change(function(e) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('#showImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
@@ -164,10 +206,10 @@
     </script>
 
     <script>
-        $(document).ready(function () {
-            $('#editImage').change(function (e) {
+        $(document).ready(function() {
+            $('#editImage').change(function(e) {
                 let reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     $('#bannerImage').attr('src', e.target.result);
                 }
                 reader.readAsDataURL(e.target.files['0'])
@@ -182,7 +224,7 @@
                 url: '/admin/edit/banner/' + id,
                 dataType: 'json',
 
-                success: function (data) {
+                success: function(data) {
                     // console.log(data);
                     $('#bannerId').val(data.id);
                     $('#bannerUrl').val(data.url);
