@@ -24,8 +24,8 @@ use App\Http\Middleware\Restaurant;
 use App\Http\Middleware\RestaurantStatus;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
+// Route::get('/cek-waktu', function () {
+//     return Carbon\Carbon::now();
 // });
 
 Route::get('/', [UserController::class, 'index'])->name('index');
