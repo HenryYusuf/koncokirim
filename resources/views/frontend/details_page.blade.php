@@ -52,8 +52,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="restaurant-detailed-action-btn float-right">
-                        <button class="btn btn-light btn-sm border-light-btn" type="button" onclick="addWishList({{ $restaurant->id }})"><i
-                                class="icofont-heart text-danger"></i> Mark as Favourite</button>
+                        <button class="btn btn-light btn-sm border-light-btn" type="button"
+                            onclick="addWishList({{ $restaurant->id }})"><i class="icofont-heart text-danger"></i> Mark as
+                            Favourite</button>
                         {{-- <button class="btn btn-light btn-sm border-light-btn" type="button"><i
                                 class="icofont-cauli-flower text-success"></i> Pure Veg</button>
                         <button class="btn btn-outline-danger btn-sm" type="button"><i class="icofont-sale-discount"></i>
@@ -171,8 +172,7 @@
                                                         <p class="text-gray mb-2">{{ $bestSeller->city->city_name }}</p>
                                                         <p class="text-gray time mb-0">
                                                             @if ($bestSeller->discount_price == null)
-                                                                <a class="btn btn-link btn-sm text-black"
-                                                                    href="#">Rp
+                                                                <a class="btn btn-link btn-sm text-black" href="#">Rp
                                                                     {{ number_format($bestSeller->price, 0, ',', '.') }}
                                                                 </a>
                                                             @else
@@ -204,8 +204,8 @@
                                         </h5>
                                         <div class="col-md-12">
                                             <div class="bg-white rounded border shadow-sm mb-4">
-                                                <div class="menu-list p-3 border-bottom">
-                                                    @foreach ($menu->products as $product)
+                                                @foreach ($menu->products as $product)
+                                                    <div class="menu-list p-3 border-bottom">
                                                         <a class="btn btn-outline-secondary btn-sm float-right"
                                                             href="{{ route('user.add.to.cart', $product->id) }}">ADD</a>
 
@@ -242,8 +242,8 @@
                                                                 @endif
                                                             </div>
                                                         </div>
-                                                    @endforeach
-                                                </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -459,7 +459,8 @@
                                     <h5 class="mb-1">All Ratings and Reviews</h5>
                                     <div class="reviews-members pt-4 pb-4">
                                         <div class="media">
-                                            <a href="#"><img alt="Generic placeholder image" src="{{ asset('frontend/img/user/1.png') }}"
+                                            <a href="#"><img alt="Generic placeholder image"
+                                                    src="{{ asset('frontend/img/user/1.png') }}"
                                                     class="mr-3 rounded-pill"></a>
                                             <div class="media-body">
                                                 <div class="reviews-members-header">
@@ -613,7 +614,8 @@
                                 <p class="mb-1 text-success">Total Discount
                                     <span class="float-right text-success">
                                         @if (Session::has('coupon'))
-                                            Rp {{ number_format($total - Session::get('coupon')['discount_amount'], 0, ',', '.') }}
+                                            Rp
+                                            {{ number_format($total - Session::get('coupon')['discount_amount'], 0, ',', '.') }}
                                         @else
                                             Rp {{ number_format($total, 0, ',', '.') }}
                                         @endif

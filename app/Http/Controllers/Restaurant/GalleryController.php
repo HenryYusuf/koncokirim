@@ -63,7 +63,7 @@ class GalleryController extends Controller
             $manager = new ImageManager(new Driver());
             $nameGen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img->resize(500, 500)->save(public_path('upload/gallery/' . $nameGen));
+            $img->resize(800, 800)->save(public_path('upload/gallery/' . $nameGen));
             $saveUrl = 'upload/gallery/' . $nameGen;
 
             $gallery = Gallery::find($galleryId);

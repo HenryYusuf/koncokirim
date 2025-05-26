@@ -7,6 +7,8 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class RestaurantController extends Controller
 {
@@ -104,8 +106,10 @@ class RestaurantController extends Controller
 
         if ($request->hasFile('photo')) {
             $fileProfilePhoto = $request->file('photo');
+            $manager = new ImageManager(new Driver());
             $fileNamePhoto = time() . '.' . $fileProfilePhoto->getClientOriginalExtension();
-            $fileProfilePhoto->move(public_path('upload/restaurant_images'), $fileNamePhoto);
+            $img = $manager->read($fileProfilePhoto);
+            $img->resize(width:508, height:320)->save(public_path('upload/restaurant_images/'. $fileNamePhoto));
             $data->photo = $fileNamePhoto;
 
             if ($oldPhotoPath && $oldPhotoPath !== $fileNamePhoto) {

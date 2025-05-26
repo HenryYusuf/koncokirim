@@ -42,7 +42,7 @@ class ProductController extends Controller
             $manager = new ImageManager(new Driver());
             $nameGen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img->resize(300, 300)->save(public_path('upload/product/' . $nameGen));
+            $img->resize(508, 320)->save(public_path('upload/product/' . $nameGen));
             $saveUrl = 'upload/product/' . $nameGen;
 
             Product::create([
@@ -92,7 +92,7 @@ class ProductController extends Controller
             $manager = new ImageManager(new Driver());
             $nameGen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
             $img = $manager->read($image);
-            $img->resize(300, 300)->save(public_path('upload/product/' . $nameGen));
+            $img->resize(508, 320)->save(public_path('upload/product/' . $nameGen));
             $saveUrl = 'upload/product/' . $nameGen;
 
             Product::find($productId)->update([
