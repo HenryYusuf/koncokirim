@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Askbootstrap">
     <meta name="author" content="Askbootstrap">
-    <title>Osahan Eat - Online Food Ordering Website HTML Template</title>
+    <title>Konco Kirim - Munjungan Delivery Order</title>
     <!-- Favicon Icon -->
     <link rel="icon" type="image/png" href="{{ asset('frontend/img/favicon.png') }}">
     <!-- Bootstrap core CSS-->

@@ -28,34 +28,33 @@
 
                         <div class="card-body">
 
-                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Menu Name</th>
-                                        <th>Image</th>
-                                        <th>Action </th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    @foreach ($menus as $key => $item)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>{{ $item->menu_name }}</td>
-                                            <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;">
-                                            </td>
-                                            <td><a href="{{ route('restaurant.edit.menu', $item->id) }}"
-                                                    class="btn btn-info waves-effect waves-light">Edit</a>
-                                                <a href="{{ route('restaurant.delete.menu', $item->id) }}"
-                                                    class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Menu Name</th>
+                                            <th>Image</th>
+                                            <th>Action </th>
                                         </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($menus as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->menu_name }}</td>
+                                                <td><img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;">
+                                                </td>
+                                                <td><a href="{{ route('restaurant.edit.menu', $item->id) }}"
+                                                        class="btn btn-info waves-effect waves-light">Edit</a>
+                                                    <a href="{{ route('restaurant.delete.menu', $item->id) }}"
+                                                        class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>
