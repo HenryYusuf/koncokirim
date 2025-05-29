@@ -25,32 +25,32 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Category Name</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    @foreach ($categories as $key => $item)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                    <thead>
                                         <tr>
-                                            <td>{{$key + 1}}</td>
-                                            <td>{{$item->category_name}}</td>
-                                            <td><img src="{{asset($item->image)}}" alt="" style="width: 70px; height: 40px;" />
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.edit.category', $item->id) }}" class="btn btn-info waves-effect waves-light">Edit</a>
-                                                <a href="{{ route('admin.delete.category', $item->id) }}" class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Category Name</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($categories as $key => $item)
+                                            <tr>
+                                                <td>{{$key + 1}}</td>
+                                                <td>{{$item->category_name}}</td>
+                                                <td><img src="{{asset($item->image)}}" alt="" style="width: 70px; height: 40px;" />
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.edit.category', $item->id) }}" class="btn btn-info waves-effect waves-light">Edit</a>
+                                                    <a href="{{ route('admin.delete.category', $item->id) }}" class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>

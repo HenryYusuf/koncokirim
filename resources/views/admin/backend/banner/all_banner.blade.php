@@ -29,38 +29,38 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Banner Image</th>
-                                        <th>Banner Url</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    @foreach ($banners as $key => $item)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>
-                                                <img src="{{ asset($item->image) }}" alt=""
-                                                    style="width: 70px; height: 40px;" />
-                                            </td>
-                                            <td>{{ $item->url }}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                    data-bs-toggle="modal" data-bs-target="#editBannerModal"
-                                                    id="{{ $item->id }}" onclick="editBanner(this.id)">Edit</button>
-                                                <a href="{{ route('admin.delete.banner', $item->id) }}"
-                                                    class="btn btn-danger waves-effect waves-light"
-                                                    id="delete">Delete</a>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Banner Image</th>
+                                            <th>Banner Url</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($banners as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>
+                                                    <img src="{{ asset($item->image) }}" alt=""
+                                                        style="width: 70px; height: 40px;" />
+                                                </td>
+                                                <td>{{ $item->url }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                        data-bs-toggle="modal" data-bs-target="#editBannerModal"
+                                                        id="{{ $item->id }}" onclick="editBanner(this.id)">Edit</button>
+                                                    <a href="{{ route('admin.delete.banner', $item->id) }}"
+                                                        class="btn btn-danger waves-effect waves-light"
+                                                        id="delete">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>

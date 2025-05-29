@@ -25,50 +25,49 @@
 
                         <div class="card-body">
 
-                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Status</th>
-                                        <th>Action </th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    @foreach ($restaurants as $key => $item)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>
-                                                <img src="{{ !empty($item->photo) ? url('upload/restaurant_images/' . $item->photo) : url('upload/no_image.jpg') }}"
-                                                    alt="" style="width: 70px; height:40px;">
-                                            </td>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->phone }}</td>
-                                            <td>
-                                                <span id="status-text-{{ $item->id }}">
-                                                    @if ($item->status == 1)
-                                                        <span class="text-success"><b>Active</b></span>
-                                                    @else
-                                                        <span class="text-danger"><b>Inactive</b></span>
-                                                    @endif
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
-                                                    data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                    data-on="Active" data-off="Inactive" {{ $item->status ? 'checked' : '' }}>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Status</th>
+                                            <th>Action </th>
                                         </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($restaurants as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>
+                                                    <img src="{{ !empty($item->photo) ? url('upload/restaurant_images/' . $item->photo) : url('upload/no_image.jpg') }}"
+                                                        alt="" style="width: 70px; height:40px;">
+                                                </td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->phone }}</td>
+                                                <td>
+                                                    <span id="status-text-{{ $item->id }}">
+                                                        @if ($item->status == 1)
+                                                            <span class="text-success"><b>Active</b></span>
+                                                        @else
+                                                            <span class="text-danger"><b>Inactive</b></span>
+                                                        @endif
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <input data-id="{{ $item->id }}" class="toggle-class" type="checkbox"
+                                                        data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
+                                                        data-on="Active" data-off="Inactive" {{ $item->status ? 'checked' : '' }}>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>

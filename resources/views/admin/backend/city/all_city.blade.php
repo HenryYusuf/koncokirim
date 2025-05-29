@@ -26,34 +26,34 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>City Name</th>
-                                        <th>City Slug</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    @foreach ($cities as $key => $item)
+                            <div class="table-responsive">
+                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                    <thead>
                                         <tr>
-                                            <td>{{$key + 1}}</td>
-                                            <td>{{$item->city_name}}</td>
-                                            <td>{{$item->city_slug}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                    data-bs-toggle="modal" data-bs-target="#editCityModal" id="{{ $item->id }}"
-                                                    onclick="editCity(this.id)">Edit</button>
-                                                <a href="{{ route('admin.delete.city', $item->id) }}"
-                                                    class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
-                                            </td>
+                                            <th>No</th>
+                                            <th>City Name</th>
+                                            <th>City Slug</th>
+                                            <th>Action</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($cities as $key => $item)
+                                            <tr>
+                                                <td>{{$key + 1}}</td>
+                                                <td>{{$item->city_name}}</td>
+                                                <td>{{$item->city_slug}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                        data-bs-toggle="modal" data-bs-target="#editCityModal" id="{{ $item->id }}"
+                                                        onclick="editCity(this.id)">Edit</button>
+                                                    <a href="{{ route('admin.delete.city', $item->id) }}"
+                                                        class="btn btn-danger waves-effect waves-light" id="delete">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>
