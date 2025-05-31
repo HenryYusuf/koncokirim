@@ -53,15 +53,17 @@
                                                                     <span class="badge bg-danger text-white">Canceled</span>
                                                                 @endif
                                                             </td>
-                                                            <td class="d-flex justify-content-between">
-                                                                <a href="{{ route('user.order.details', $item->id) }}"
-                                                                    class="text-info">
-                                                                    <i class="fas fa-eye"></i>
-                                                                </a>
-                                                                <a href="{{ route('user.invoice.download', $item->id) }}"
-                                                                    class="text-black">
-                                                                    <i class="fas fa-download"></i>
-                                                                </a>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <a href="{{ route('user.order.details', $item->id) }}"
+                                                                        class="text-info">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </a>
+                                                                    <a href="{{ route('user.invoice.download', $item->id) }}"
+                                                                        class="text-black">
+                                                                        <i class="fas fa-download"></i>
+                                                                    </a>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach

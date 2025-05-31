@@ -80,7 +80,7 @@
             <td>
                 <p class="font" style="margin-left: 20px;">
                     <strong>Name:</strong> {{ $order->name }} <br>
-                    <strong>Email:</strong> {{ $order->address }} <br>
+                    <strong>Email:</strong> {{ $order->email }} <br>
                     <strong>Phone:</strong> {{ $order->phone }} <br>
                     <strong>Address:</strong> {{ $order->address }} <br>
                 </p>
