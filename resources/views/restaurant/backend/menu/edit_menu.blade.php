@@ -110,9 +110,6 @@
                     category_name: {
                         required: true,
                     },
-                    image: {
-                        required: true,
-                    },
 
                 },
                 messages: {
